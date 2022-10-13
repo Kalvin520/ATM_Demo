@@ -66,6 +66,11 @@ public class ATMSystem {
 
         //隨機生成13位與其他帳戶不同的卡號(獨立功能,獨立方法)
         String cardId = getRandomCardId(accounts);
+        account.setCardId(cardId);
+
+        //3.把帳戶物件添加到帳戶集合去
+        accounts.add(account);
+        System.out.println("恭喜您，"+username+"您開戶成功，您的卡號為："+cardId+"請妥善保管此卡號");
     }
 
     /**
@@ -73,10 +78,11 @@ public class ATMSystem {
      * @return
      */
     public static String  getRandomCardId(ArrayList<Account> accounts){
+        Random rd = new Random();
         while (true) {
             //1.生成13位數字
             String cardId = "";
-            Random rd = new Random();
+
             for (int i = 0; i < 13; i++) {
                 cardId += rd.nextInt(10);
             }
@@ -86,9 +92,8 @@ public class ATMSystem {
             Account acc = getAccountByCardId(cardId, accounts);
             if (acc == null) {
                 //代表cardId 沒有重複可以用於創建新的帳戶
-                return cardId
+                return cardId;
             }
-            return null;
         }
     }
 
