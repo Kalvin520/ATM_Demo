@@ -15,7 +15,7 @@ public class ATMSystem {
         int command = sc.nextInt();
             switch (command) {
                 case 1://登陸
-
+                    login(accounts,sc);
                     break;
                 case 2://開戶
                     register(accounts,sc);
@@ -111,5 +111,45 @@ public class ATMSystem {
             }
         }
         return null;//查無帳號
+    }
+
+
+    /**
+     * 登陸方法實作
+     * @param accounts  接受帳戶集合
+     * @param sc 掃瞄器
+     */
+    private static void login(ArrayList<Account>accounts,Scanner sc){
+        System.out.println("====================登陸介面====================");
+        //1.判斷帳戶中是否存在帳戶
+        if (accounts.size() == 0){
+            System.out.println("當前系統中無任何帳戶，請先建立帳戶");
+            return;
+        }
+        while (true) {
+            //2.登陸操作
+            System.out.println("請輸入您的卡號：");
+            String cardId = sc.next();
+            //3.判斷卡號是否存在，去帳戶集合中查詢帳戶物件
+            Account acc = getAccountByCardId(cardId, accounts);
+            if (acc != null) {
+                while (true) {
+                    //卡號存在
+                    //4.輸入密碼，驗證密碼
+                    System.out.println("請輸入登陸密碼：");
+                    String password = sc.next();
+                    //判斷密碼是否正確
+                    if (acc.getPassWord().equals(password)) {
+                        //登陸成功
+                        System.out.println("恭喜您，"+ acc.getUserName()+" 登陸成功 您的卡號是："+acc.getCardId());
+                         
+                    } else {
+                        System.out.println("密碼輸入錯誤請重新輸入");
+                    }
+                }
+            } else {
+                System.out.println("系統中不存在該帳戶卡號！");
+            }
+        }
     }
 }
