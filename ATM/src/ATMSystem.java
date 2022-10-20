@@ -142,7 +142,7 @@ public class ATMSystem {
                     if (acc.getPassWord().equals(password)) {
                         //登陸成功
                         System.out.println("恭喜您，"+ acc.getUserName()+" 登陸成功 您的卡號是："+acc.getCardId());
-                         
+
                     } else {
                         System.out.println("密碼輸入錯誤請重新輸入");
                     }
